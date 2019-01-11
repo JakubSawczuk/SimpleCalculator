@@ -4,9 +4,14 @@ public enum OperationsE {
 
     ADDITION("add"),
     MULTIPLY("multiply"),
+    DIVIDE("divide"),
+    SUBTRACT("subtract"),
+    POWER("power"),
+    SQUARE("square"),
+    LOGARITHM("log"),
     APPLY("apply");
 
-    String name;
+    private String name;
 
     OperationsE(String name) {
         this.name = name;

@@ -1,5 +1,6 @@
-package com.sawczuk.calculators;
+package com.sawczuk.calculators.operations;
 
+import com.sawczuk.calculators.IOperationStrategy;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 

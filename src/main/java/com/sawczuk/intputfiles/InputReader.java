@@ -1,4 +1,4 @@
-package com.sawczuk;
+package com.sawczuk.intputfiles;
 
 import com.sawczuk.enums.OperationsE;
 import com.sawczuk.exceptions.OperationException;
@@ -24,7 +24,7 @@ public class InputReader {
     public List<InputData> readFileData() {
         List<InputData> inputDataList = new ArrayList<>();
         try {
-            Path path = Paths.get(getClass().getClassLoader().getResource("data.txt").toURI());
+            Path path = Paths.get(getClass().getClassLoader().getResource("example.txt").toURI());
             BufferedReader r = Files.newBufferedReader(path, StandardCharsets.UTF_8);
             r.lines().forEach(s -> {
                 inputDataList.add(splitLine(s));
@@ -38,12 +38,9 @@ public class InputReader {
             LOGGER.log(Level.SEVERE, e2.toString(), e2);
         }
 
-        if(!ifExistApply(inputDataList)){
-            throw new OperationException("Field doesnt have the operation: APPLY");
+        if (!ifExistApply(inputDataList)) {
+            throw new OperationException("Field does not have the operation: APPLY");
         }
-
-        inputDataList.forEach(inputData ->
-                System.out.println(inputData.getOperation() + " " + inputData.getValue()));
 
         return inputDataList;
     }
@@ -59,7 +56,7 @@ public class InputReader {
         return new InputData(params[0], Double.parseDouble(params[1]));
     }
 
-    private boolean ifExistApply(List<InputData> inputDataList){
+    private boolean ifExistApply(List<InputData> inputDataList) {
         return inputDataList.parallelStream()
                 .anyMatch(inputData -> inputData.getOperation().equals(OperationsE.APPLY.getName()));
     }

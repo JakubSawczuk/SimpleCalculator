@@ -1,9 +1,9 @@
 package com.sawczuk;
 
-import com.sawczuk.calculators.AddOperation;
-import com.sawczuk.calculators.MultiplyOperation;
+import com.sawczuk.calculators.operations.*;
 import com.sawczuk.enums.OperationsE;
-import jdk.internal.util.xml.impl.Input;
+import com.sawczuk.intputfiles.InputData;
+import com.sawczuk.intputfiles.InputReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +21,16 @@ public class Calculator {
     private AddOperation addOperation;
     @Autowired
     private MultiplyOperation multiplyOperation;
+    @Autowired
+    private DivideOperation divideOperation;
+    @Autowired
+    private SubtractOperation subtractOperation;
+    @Autowired
+    private PowerOperation powerOperation;
+    @Autowired
+    private SquareOperation squareOperation;
+    @Autowired
+    private LogarithmOperation logarithmOperation;
 
 
     @Autowired
@@ -43,9 +53,19 @@ public class Calculator {
 
             if (operation.equals(OperationsE.ADDITION.getName())) {
                 result = addOperation.doOperation(value, result);
-            }else if(operation.equals(OperationsE.MULTIPLY.getName())){
+            } else if (operation.equals(OperationsE.SUBTRACT.getName())) {
+                result = subtractOperation.doOperation(value, result);
+            } else if (operation.equals(OperationsE.MULTIPLY.getName())) {
                 result = multiplyOperation.doOperation(value, result);
-            }else{
+            } else if (operation.equals(OperationsE.DIVIDE.getName())) {
+                result = divideOperation.doOperation(value, result);
+            } else if (operation.equals(OperationsE.POWER.getName())) {
+                result = powerOperation.doOperation(value, result);
+            } else if (operation.equals(OperationsE.SQUARE.getName())) {
+                result = squareOperation.doOperation(value, result);
+            } else if (operation.equals(OperationsE.LOGARITHM.getName())) {
+                result = logarithmOperation.doOperation(value, result);
+            } else {
                 return result;
             }
         }
