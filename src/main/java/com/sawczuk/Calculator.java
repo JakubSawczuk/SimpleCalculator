@@ -38,19 +38,19 @@ public class Calculator {
             double value = inputData.getValue();
 
             if (operation.equals(OperationsE.ADDITION.getName())) {
-                result = operationStrategies.get(OperationsE.ADDITION.getBeanName()).doOperation(value,result);
+                result = operationStrategies.get(OperationsE.ADDITION.getBeanName()).doOperation(value, result);
             } else if (operation.equals(OperationsE.SUBTRACT.getName())) {
-                result = operationStrategies.get(OperationsE.SUBTRACT.getBeanName()).doOperation(value,result);
+                result = operationStrategies.get(OperationsE.SUBTRACT.getBeanName()).doOperation(value, result);
             } else if (operation.equals(OperationsE.MULTIPLY.getName())) {
-                result = operationStrategies.get(OperationsE.MULTIPLY.getBeanName()).doOperation(value,result);
+                result = operationStrategies.get(OperationsE.MULTIPLY.getBeanName()).doOperation(value, result);
             } else if (operation.equals(OperationsE.DIVIDE.getName())) {
-                result = operationStrategies.get(OperationsE.DIVIDE.getBeanName()).doOperation(value,result);
+                result = operationStrategies.get(OperationsE.DIVIDE.getBeanName()).doOperation(value, result);
             } else if (operation.equals(OperationsE.POWER.getName())) {
-                result = operationStrategies.get(OperationsE.POWER.getBeanName()).doOperation(value,result);
+                result = operationStrategies.get(OperationsE.POWER.getBeanName()).doOperation(value, result);
             } else if (operation.equals(OperationsE.SQUARE.getName())) {
-                result = operationStrategies.get(OperationsE.SQUARE.getBeanName()).doOperation(value,result);
+                result = operationStrategies.get(OperationsE.SQUARE.getBeanName()).doOperation(value, result);
             } else if (operation.equals(OperationsE.LOGARITHM.getName())) {
-                result = operationStrategies.get(OperationsE.LOGARITHM.getBeanName()).doOperation(value,result);
+                result = operationStrategies.get(OperationsE.LOGARITHM.getBeanName()).doOperation(value, result);
             } else {
                 return result;
             }

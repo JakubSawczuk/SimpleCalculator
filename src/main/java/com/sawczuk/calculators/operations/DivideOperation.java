@@ -10,10 +10,10 @@ public class DivideOperation implements IOperationStrategy {
     static final Logger LOGGER = Logger.getLogger(DivideOperation.class.getName());
 
     @Override
-    public double doOperation(double p1, double p2) {
-        if(Double.isInfinite(p2/p1)){
+    public double doOperation(double value, double result) {
+        if (Double.isInfinite(result / value)) {
             throw new ArithmeticException("Divide by 0");
         }
-        return p2/p1;
+        return result / value;
     }
 }

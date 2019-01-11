@@ -21,7 +21,7 @@ public class AppContext {
         appx.start();
     }
 
-    private void start(){
+    private void start() {
         calculator.calculate();
     }
 }

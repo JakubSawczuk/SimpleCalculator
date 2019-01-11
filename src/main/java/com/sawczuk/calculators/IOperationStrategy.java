@@ -2,5 +2,5 @@ package com.sawczuk.calculators;
 
 public interface IOperationStrategy {
 
-    double doOperation(double p1, double p2);
+    double doOperation(double value, double result);
 }
