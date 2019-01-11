@@ -1,6 +1,6 @@
 package com.sawczuk;
 
-import com.sawczuk.calculators.operations.*;
+import com.sawczuk.calculators.IOperationStrategy;
 import com.sawczuk.enums.OperationsE;
 import com.sawczuk.intputfiles.InputData;
 import com.sawczuk.intputfiles.InputReader;
@@ -8,63 +8,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Component
 public class Calculator {
     private static final Logger LOGGER = Logger.getLogger(Calculator.class.getName());
+
     private InputReader inputReader;
     private List<InputData> inputDataList;
+    private Map<String, IOperationStrategy> operationStrategies;
 
     @Autowired
-    private AddOperation addOperation;
-    @Autowired
-    private MultiplyOperation multiplyOperation;
-    @Autowired
-    private DivideOperation divideOperation;
-    @Autowired
-    private SubtractOperation subtractOperation;
-    @Autowired
-    private PowerOperation powerOperation;
-    @Autowired
-    private SquareOperation squareOperation;
-    @Autowired
-    private LogarithmOperation logarithmOperation;
-
-
-    @Autowired
-    public Calculator(InputReader inputReader) {
+    public Calculator(InputReader inputReader, Map<String, IOperationStrategy> operationStrategies) {
         this.inputReader = inputReader;
+        this.operationStrategies = operationStrategies;
     }
 
     public void calculate() {
         inputDataList = inputReader.readFileData();
-        double result = returnResult();
-        LOGGER.log(Level.INFO, "RESULT is: {0}" + result);
+        LOGGER.log(Level.INFO, "RESULT is: " + returnResult());
     }
 
     private double returnResult() {
         double result = findFirstValue();
-
         for (InputData inputData : inputDataList) {
             String operation = inputData.getOperation();
             double value = inputData.getValue();
 
             if (operation.equals(OperationsE.ADDITION.getName())) {
-                result = addOperation.doOperation(value, result);
+                result = operationStrategies.get(OperationsE.ADDITION.getBeanName()).doOperation(value,result);
             } else if (operation.equals(OperationsE.SUBTRACT.getName())) {
-                result = subtractOperation.doOperation(value, result);
+                result = operationStrategies.get(OperationsE.SUBTRACT.getBeanName()).doOperation(value,result);
             } else if (operation.equals(OperationsE.MULTIPLY.getName())) {
-                result = multiplyOperation.doOperation(value, result);
+                result = operationStrategies.get(OperationsE.MULTIPLY.getBeanName()).doOperation(value,result);
             } else if (operation.equals(OperationsE.DIVIDE.getName())) {
-                result = divideOperation.doOperation(value, result);
+                result = operationStrategies.get(OperationsE.DIVIDE.getBeanName()).doOperation(value,result);
             } else if (operation.equals(OperationsE.POWER.getName())) {
-                result = powerOperation.doOperation(value, result);
+                result = operationStrategies.get(OperationsE.POWER.getBeanName()).doOperation(value,result);
             } else if (operation.equals(OperationsE.SQUARE.getName())) {
-                result = squareOperation.doOperation(value, result);
+                result = operationStrategies.get(OperationsE.SQUARE.getBeanName()).doOperation(value,result);
             } else if (operation.equals(OperationsE.LOGARITHM.getName())) {
-                result = logarithmOperation.doOperation(value, result);
+                result = operationStrategies.get(OperationsE.LOGARITHM.getBeanName()).doOperation(value,result);
             } else {
                 return result;
             }
