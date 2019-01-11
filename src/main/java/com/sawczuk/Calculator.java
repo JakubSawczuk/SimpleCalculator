@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 @Component
 public class Calculator {
-    static final Logger LOGGER = Logger.getLogger(Calculator.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Calculator.class.getName());
     private InputReader inputReader;
     private List<InputData> inputDataList;
 
@@ -41,7 +41,7 @@ public class Calculator {
     public void calculate() {
         inputDataList = inputReader.readFileData();
         double result = returnResult();
-        LOGGER.log(Level.INFO, "RESULT is: " + result);
+        LOGGER.log(Level.INFO, "RESULT is: {0}" + result);
     }
 
     private double returnResult() {

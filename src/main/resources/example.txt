@@ -1,0 +1,9 @@
+add 2
+multiply 3
+divide 2
+subtract 8
+power 2
+square 2
+power 2
+log 10
+apply 10

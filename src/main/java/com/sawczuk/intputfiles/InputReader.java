@@ -19,21 +19,17 @@ import java.util.logging.Logger;
 
 @Component
 public class InputReader {
-    static final Logger LOGGER = Logger.getLogger(InputReader.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(InputReader.class.getName());
 
     public List<InputData> readFileData() {
         List<InputData> inputDataList = new ArrayList<>();
         try {
             Path path = Paths.get(getClass().getClassLoader().getResource("example.txt").toURI());
             BufferedReader r = Files.newBufferedReader(path, StandardCharsets.UTF_8);
-            r.lines().forEach(s -> {
-                inputDataList.add(splitLine(s));
-            });
+            r.lines().forEach(s -> inputDataList.add(splitLine(s)));
 
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | IOException e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
-        } catch (IOException e1) {
-            LOGGER.log(Level.SEVERE, e1.toString(), e1);
         } catch (NumberFormatException e2) {
             LOGGER.log(Level.SEVERE, e2.toString(), e2);
         }
