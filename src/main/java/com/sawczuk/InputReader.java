@@ -1,7 +1,8 @@
-import enums.OperationsE;
-import exceptions.OperationException;
+package com.sawczuk;
+
+import com.sawczuk.enums.OperationsE;
+import com.sawczuk.exceptions.OperationException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,8 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Component
-public class FileReader {
-    static final Logger LOGGER = Logger.getLogger(FileReader.class.getName());
+public class InputReader {
+    static final Logger LOGGER = Logger.getLogger(InputReader.class.getName());
 
     public List<InputData> readFileData() {
         List<InputData> inputDataList = new ArrayList<>();
@@ -37,19 +38,29 @@ public class FileReader {
             LOGGER.log(Level.SEVERE, e2.toString(), e2);
         }
 
+        if(!ifExistApply(inputDataList)){
+            throw new OperationException("Field doesnt have the operation: APPLY");
+        }
+
         inputDataList.forEach(inputData ->
-                System.out.println(inputData.getOperation() + " " + inputData.getNumber()));
+                System.out.println(inputData.getOperation() + " " + inputData.getValue()));
 
         return inputDataList;
     }
 
     private InputData splitLine(String line) {
-        String[] params = line.split(" ");
-        boolean isExistingOperation = Arrays.stream(OperationsE.values())
+        String[] params = line.split("\\s+");
+        boolean isExistOperation = Arrays.stream(OperationsE.values())
                 .anyMatch(operationsE -> operationsE.getName().equals(params[0]));
-        if (!isExistingOperation) {
-            throw new OperationException();
+
+        if (!isExistOperation) {
+            throw new OperationException("Fail operation - check calculators input");
         }
         return new InputData(params[0], Double.parseDouble(params[1]));
+    }
+
+    private boolean ifExistApply(List<InputData> inputDataList){
+        return inputDataList.parallelStream()
+                .anyMatch(inputData -> inputData.getOperation().equals(OperationsE.APPLY.getName()));
     }
 }

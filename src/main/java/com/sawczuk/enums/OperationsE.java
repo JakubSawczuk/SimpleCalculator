@@ -1,4 +1,4 @@
-package enums;
+package com.sawczuk.enums;
 
 public enum OperationsE {
 
