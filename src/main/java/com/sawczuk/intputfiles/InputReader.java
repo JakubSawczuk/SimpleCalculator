@@ -24,14 +24,11 @@ public class InputReader {
     public List<InputData> readFileData() {
         List<InputData> inputDataList = new ArrayList<>();
         try {
-            Path path = Paths.get(getClass().getClassLoader().getResource("example.txt").toURI());
+            Path path = getResourcePath("example.txt");
             BufferedReader r = Files.newBufferedReader(path, StandardCharsets.UTF_8);
             r.lines().forEach(s -> inputDataList.add(splitLine(s)));
-
-        } catch (URISyntaxException | IOException e) {
-            LOGGER.log(Level.SEVERE, e.toString(), e);
-        } catch (NumberFormatException e2) {
-            LOGGER.log(Level.SEVERE, e2.toString(), e2);
+        } catch (IOException | NumberFormatException e) {
+            LOGGER.log(Level.SEVERE, "Invalid value in the file");
         }
 
         if (!ifExistApply(inputDataList)) {
@@ -41,7 +38,18 @@ public class InputReader {
         return inputDataList;
     }
 
-    private InputData splitLine(String line) {
+
+    public Path getResourcePath(String name) {
+        Path path = null;
+        try {
+            path = Paths.get(getClass().getClassLoader().getResource(name).toURI());
+        } catch (URISyntaxException e) {
+            LOGGER.log(Level.SEVERE, "Problem with load the file");
+        }
+        return path;
+    }
+
+    public InputData splitLine(String line) {
         String[] params = line.split("\\s+");
         boolean isExistOperation = Arrays.stream(OperationsE.values())
                 .anyMatch(operationsE -> operationsE.getName().equals(params[0]));
@@ -52,7 +60,7 @@ public class InputReader {
         return new InputData(params[0], Double.parseDouble(params[1]));
     }
 
-    private boolean ifExistApply(List<InputData> inputDataList) {
+    public boolean ifExistApply(List<InputData> inputDataList) {
         return inputDataList.parallelStream()
                 .anyMatch(inputData -> inputData.getOperation().equals(OperationsE.APPLY.getName()));
     }

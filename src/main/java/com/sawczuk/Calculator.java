@@ -27,12 +27,12 @@ public class Calculator {
     }
 
     public void calculate() {
-        inputDataList = inputReader.readFileData();
-        LOGGER.log(Level.INFO, "RESULT is: " + returnResult());
+        List<InputData> inputDataList = inputReader.readFileData();
+        LOGGER.log(Level.INFO, "RESULT is: " + returnResult(inputDataList));
     }
 
-    private double returnResult() {
-        double result = findFirstValue();
+    public double returnResult(List<InputData> inputDataList) {
+        double result = findFirstValue(inputDataList);
         for (InputData inputData : inputDataList) {
             String operation = inputData.getOperation();
             double value = inputData.getValue();
@@ -58,11 +58,11 @@ public class Calculator {
         return result;
     }
 
-    private double findFirstValue() {
+    public double findFirstValue(List<InputData> inputDataList) {
         return inputDataList.stream()
                 .filter(inputData -> inputData.getOperation().equals(OperationsE.APPLY.getName()))
                 .findFirst()
-                .get()
+                .orElseThrow(NullPointerException::new)
                 .getValue();
     }
 }
