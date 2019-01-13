@@ -25,8 +25,9 @@ public class InputReader {
         List<InputData> inputDataList = new ArrayList<>();
         try {
             Path path = getResourcePath("example.txt");
-            BufferedReader r = Files.newBufferedReader(path, StandardCharsets.UTF_8);
-            r.lines().forEach(s -> inputDataList.add(splitLine(s)));
+            BufferedReader bufferedReader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+            bufferedReader.lines().forEach(s -> inputDataList.add(splitLine(s)));
+            bufferedReader.close();
         } catch (IOException | NumberFormatException e) {
             LOGGER.log(Level.SEVERE, "Invalid value in the file");
         }

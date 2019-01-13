@@ -17,7 +17,6 @@ public class Calculator {
     private static final Logger LOGGER = Logger.getLogger(Calculator.class.getName());
 
     private InputReader inputReader;
-    private List<InputData> inputDataList;
     private Map<String, IOperationStrategy> operationStrategies;
 
     @Autowired
@@ -28,7 +27,8 @@ public class Calculator {
 
     public void calculate() {
         List<InputData> inputDataList = inputReader.readFileData();
-        LOGGER.log(Level.INFO, "RESULT is: " + returnResult(inputDataList));
+        double result = returnResult(inputDataList);
+        LOGGER.log(Level.INFO, "RESULT is: " + result);
     }
 
     public double returnResult(List<InputData> inputDataList) {

@@ -12,7 +12,7 @@ public class DivideOperation implements IOperationStrategy {
     @Override
     public double doOperation(double value, double result) {
         if (Double.isInfinite(result / value)) {
-            throw new ArithmeticException("Divide by 0");
+            throw new ArithmeticException("Not divide by 0");
         }
         return result / value;
     }

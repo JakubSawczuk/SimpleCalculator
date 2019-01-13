@@ -14,14 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @ContextConfiguration(classes = AppContext.class, loader = AnnotationConfigContextLoader.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AddOperationTest {
+public class SubtractOperationTest {
 
     @Autowired
-    private IOperationStrategy addOperation;
+    private IOperationStrategy subtractOperation;
 
     @Test
     public void doOperation() {
-        assertEquals(10, addOperation.doOperation(5, 5));
-        assertNotEquals(20, addOperation.doOperation(15, 6));
+        assertEquals(10, subtractOperation.doOperation(15, 25));
+        assertNotEquals(3, subtractOperation.doOperation(10, 8));
     }
 }
