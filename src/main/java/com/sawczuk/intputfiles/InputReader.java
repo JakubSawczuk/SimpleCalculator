@@ -53,12 +53,12 @@ public class InputReader {
     public InputData splitLine(String line) {
         String[] params = line.split("\\s+");
         boolean isExistOperation = Arrays.stream(OperationsE.values())
-                .anyMatch(operationsE -> operationsE.getName().equals(params[0]));
+                .anyMatch(operationsE -> operationsE.getName().equals(params[0].toLowerCase()));
 
         if (!isExistOperation) {
             throw new OperationException("Fail operation - check calculators input");
         }
-        return new InputData(params[0], Double.parseDouble(params[1]));
+        return new InputData(params[0].toLowerCase(), Double.parseDouble(params[1]));
     }
 
     public boolean ifExistApply(List<InputData> inputDataList) {
